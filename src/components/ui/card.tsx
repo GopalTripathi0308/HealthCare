@@ -38,7 +38,7 @@ const Card = React.forwardRef<
         variants={interactive ? cardHover : undefined}
         initial={interactive ? "rest" : undefined}
         whileHover={interactive ? "hover" : undefined}
-        {...props}
+        {...(props as any)}
       >
         {children}
       </Component>

@@ -30,7 +30,7 @@ const inputVariants = cva(
 );
 
 export interface InputProps
-  extends React.InputHTMLAttributes<HTMLInputElement>,
+  extends Omit<React.InputHTMLAttributes<HTMLInputElement>, "size">,
     VariantProps<typeof inputVariants> {
   error?: boolean;
 }
@@ -49,7 +49,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
         initial={{ scale: 1 }}
         whileFocus={{ scale: 1.02 }}
         transition={{ duration: 0.2 }}
-        {...props}
+        {...(props as any)}
       />
     );
   }

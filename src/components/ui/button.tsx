@@ -64,6 +64,19 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
   ) => {
     const Comp = asChild ? Slot : motion.button;
 
+    // When using motion.button, exclude React event handlers that conflict with Framer Motion
+    const {
+      onDrag,
+      onDragEnd,
+      onDragStart,
+      onAnimationStart,
+      onAnimationEnd,
+      onAnimationIteration,
+      ...safeProps
+    } = props;
+
+    const componentProps = asChild ? props : safeProps;
+
     return (
       <Comp
         className={cn(buttonVariants({ variant, size, className }))}
@@ -73,7 +86,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
         whileHover="hover"
         whileTap="tap"
         disabled={loading || props.disabled}
-        {...props}
+        {...componentProps}
       >
         {loading && (
           <motion.div
